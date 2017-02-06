@@ -33,6 +33,11 @@ module Mengpaneel
       end
     end
 
+    def disable_ip!
+      @properties.delete "ip"
+      @remote_ip = nil
+    end
+
     def identify(distinct_id)
       @distinct_id = DistinctId.new(distinct_id)
     end
@@ -86,7 +91,7 @@ module Mengpaneel
       end
 
       def update(message)
-        message["$ip"] = tracker.remote_ip
+        message["$ip"] = tracker.remote_ip unless tracker.remote_ip.nil?
 
         super(message)
       end

@@ -34,8 +34,8 @@ module Mengpaneel
     end
 
     def disable_people_ip!
-      @remote_ip = 0
-      @properties["ip"] = 0
+      @remote_ip = '0'
+      @properties["ip"] = '0'
     end
 
     def identify(distinct_id)

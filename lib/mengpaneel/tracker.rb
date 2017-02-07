@@ -6,12 +6,14 @@ module Mengpaneel
     attr_reader :token
     attr_reader :remote_ip
     attr_reader :distinct_id
+    attr_reader :disable_people_ip
 
     def initialize(token, remote_ip = nil)
       super(token)
       @people = People.new(self)
 
       @remote_ip = remote_ip
+      @disable_people_ip = false
 
       @disable_all_events = false
       @disabled_events = []
@@ -34,8 +36,7 @@ module Mengpaneel
     end
 
     def disable_people_ip!
-      @remote_ip = '0'
-      @properties["ip"] = '0'
+      @disable_people_ip = true
     end
 
     def identify(distinct_id)
@@ -91,11 +92,7 @@ module Mengpaneel
       end
 
       def update(message)
-        if tracker.remote_ip == '0'
-          message.delete('$ip')
-        else
-          message['$ip'] = tracker.remote_ip
-        end
+        message['$ip'] = tracker.disable_people_ip ? '0' : tracker.remote_ip
 
         super(message)
       end

@@ -91,7 +91,7 @@ module Mengpaneel
       end
 
       def update(message)
-        message["$ip"] = tracker.remote_ip
+        message["$ip"] = tracker.remote_ip unless tracker.remote_ip == '0'
 
         super(message)
       end

@@ -40,7 +40,7 @@ module Mengpaneel
     end
 
     def identify(distinct_id)
-      @distinct_id = DistinctId.new(distinct_id)
+      @distinct_id = DistinctId.new(distinct_id.to_s)
     end
 
     def register(properties)

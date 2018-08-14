@@ -55,7 +55,7 @@ module Mengpaneel
 
           [
             %{<script type="text/javascript">},
-              %{mixpanel.__proto__.track_with_distinct_id = function(distinct_id, event_name, properties) { params['distinct_id'] = distinct_id; mixpanel.track(event_name, properties); }},
+              %{mixpanel.__proto__.track_with_distinct_id = function(distinct_id, event_name, properties) { properties['distinct_id'] = distinct_id; mixpanel.track(event_name, properties); }},
               *javascript_calls(:tracking),
             %{</script>}
           ].join("\n")
